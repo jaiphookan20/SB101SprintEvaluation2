@@ -1,0 +1,75 @@
+Question 2
+
+2A) Explain ThreadPool Executor in java with an Example.
+
+	ThreadPool executor's job, as the name suggests is a collection of threads which have already been created to solve performance and memory issues
+	as a result of concurrency. What the thread pool does is that it allows us to create a pool of threads (instead of several independent threads)
+	and submit our required operations to the thread pool. In the thread pool, a single thread is able to perform many operations independently. 
+	
+	EXAMPLE:
+	package Question2;
+
+	import java.util.concurrent.ExecutorService;
+	import java.util.concurrent.Executors;
+	
+	public class Main {
+	
+		public static void main(String[] args) {
+			
+			Tasks[] tasks = {
+					new Tasks("Wash"),
+					new Tasks("Brush"),
+					new Tasks("Clean"),
+					new Tasks("Eat")
+			};
+			
+			
+			ExecutorService  taskManager = Executors.newFixedThreadPool(4);
+			
+			for (Tasks t : tasks) {
+				taskManager.submit(t);
+			}
+	
+		}
+	
+	}
+	
+	
+	
+	class Tasks implements Runnable {
+		
+		String task;
+		
+		public Tasks(String task) {
+			this.task = task;
+		}
+	
+		@Override
+		public void run() {
+			System.out.println(this.task);
+			
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+
+
+	
+	
+2B) Write a program that will result in a deadlock. How will you fix deadlock in Java show with
+examples?
+
+A deadlock in Java occurs when 2 threads or more are trying to use/access the same data/resources at the same time 
+and end up waiting possible forever because that data/resource is being used/held by another thread. 
+
+Deadlocks can be fixed by avoiding the possibility of entering into a deadlock situation by re-ordering the statements (synchronised locks) where the shared resources
+ are being accessed by the different threads.
+ 
+
+
+
